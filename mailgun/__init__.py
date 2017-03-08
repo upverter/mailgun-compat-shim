@@ -1,10 +1,11 @@
 __title__ = 'mailgun'
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 __author__ = 'Stephen Hamer'
 __license__ = 'Apache 2.0'
 
 import base64
 import email
+import quopri
 
 import mailgun2
 
@@ -46,9 +47,14 @@ class MailgunMessage:
         payloads = msg.get_payload()
         for payload in payloads:
             encoding = payload.get('Content-Transfer-Encoding', 'unknown')
-            if encoding != 'base64':
-                raise MailgunError('message not base64 encoded: %s' % (encoding, ))
-            body = base64.decodestring(payload.get_payload())
+            if encoding == 'base64':
+                body = base64.decodestring(payload.get_payload())
+            elif encoding in ('7bit', '8bit', 'binary'):
+                body = paylod.get_payload()
+            elif encoding == 'quoted-printable':
+                body = quopri.decodestring(payload.get_payload())
+            else:
+                raise MailgunError('unexpected message encoding: %s' % (encoding, ))
 
             content_type = payload.get('Content-Type', 'none')
             if content_type.startswith('text/plain'):
