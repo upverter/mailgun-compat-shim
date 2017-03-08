@@ -50,7 +50,7 @@ class MailgunMessage:
             if encoding == 'base64':
                 body = base64.decodestring(payload.get_payload())
             elif encoding in ('7bit', '8bit', 'binary'):
-                body = paylod.get_payload()
+                body = payload.get_payload()
             elif encoding == 'quoted-printable':
                 body = quopri.decodestring(payload.get_payload())
             else:
