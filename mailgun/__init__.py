@@ -38,7 +38,7 @@ class MailgunMessage:
     '''
 
     @classmethod
-    def send_raw(cls, sender, recipients, mime_body, servername=''):
+    def send_raw(cls, sender, recipients, mime_body, servername='', cc=None, bcc=None):
         msg = email.message_from_string(mime_body)
 
         text_body = None
@@ -64,9 +64,9 @@ class MailgunMessage:
             else:
                 raise MailgunError('unexpected content type for payload: %s' % (content_type, ))
 
-        Mailgun.client.send_message(sender, recipients, subject=msg.get('Subject'), text=text_body, html=html_body)
+        Mailgun.client.send_message(sender, recipients, subject=msg.get('Subject'), text=text_body, html=html_body, cc=cc, bcc=bcc)
 
 
     @classmethod
-    def send_txt(cls, sender, recipients, subject, text, servername='', options=None):
-        Mailgun.client.send_message(sender, recipients, subject=subject, text=text)
+    def send_txt(cls, sender, recipients, subject, text, servername='', options=None, cc=None, bcc=None):
+        Mailgun.client.send_message(sender, recipients, cc=cc, bcc=bcc, subject=subject, text=text)
