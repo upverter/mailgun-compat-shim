@@ -1,8 +1,3 @@
-__title__ = 'mailgun'
-__version__ = '0.0.3'
-__author__ = 'Stephen Hamer'
-__license__ = 'Apache 2.0'
-
 import base64
 import email
 import quopri

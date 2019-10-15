@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 from setuptools import setup
-import mailgun
+
+__title__ = 'mailgun'
+__version__ = '0.0.4'
+__author__ = 'Stephen Hamer'
+__license__ = 'Apache 2.0'
 
 setup(
-    name=mailgun.__title__,
-    packages=[mailgun.__title__],
-    version=mailgun.__version__,
+    name=__title__,
+    packages=[__title__],
+    version=__version__,
     description='A python shim for using the for Mailgun API v2 using the old python client methods',
-    author=mailgun.__author__,
+    author=__author__,
     author_email='stephen.hamer@upverter.com',
     url='https://github.com/Upverter/mailgun-compat-shim',
     keywords=['mailgun', 'email'],
